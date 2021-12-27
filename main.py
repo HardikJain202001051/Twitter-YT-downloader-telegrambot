@@ -20,7 +20,7 @@ def message_action(update, context):
       id = update.message.chat_id
       if id in allowed_users:
         link = update.message.text
-        if '((twitter' or 't.co') in link):
+        if (('twitter' or 't.co') in link):
                 site = "https://twittervideodownloader.com"
                 # s = Service("D:\SeleniumDriverChrome\chromedriver.exe")
                 # driver = webdriver.Chrome(service=s)
