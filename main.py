@@ -39,7 +39,7 @@ def message_action(update, context):
                 field.send_keys(link)
                 ok = driver.find_element(By.ID, "sf_submit")
                 ok.click()
-                driver.implicitly_wait(2)
+                driver.implicitly_wait(4)
                 d = driver.find_element(By.CLASS_NAME, 'link-download')
                 link = d.get_attribute('href')
                 try:
