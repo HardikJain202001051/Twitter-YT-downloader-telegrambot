@@ -5,12 +5,10 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 
+import youtube_dl
 
 TOKEN = '5027998873:AAHaa9EOETEwvUAVFsX0almIMw-wr9jJVm4'
-chrome_options = Options()
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--disable-dev-shm-usage')
-driver = webdriver.Chrome(options=chrome_options)
+
       
 def welcome(update, context):
     update.message.reply_text("Hey!Send the link of tweet to get the video")
@@ -21,6 +19,10 @@ def message_action(update, context):
       if id in allowed_users:
         link = update.message.text
         if (('twitter' or 't.co') in link):
+                chrome_options = Options()
+                chrome_options.add_argument('--no-sandbox')
+                chrome_options.add_argument('--disable-dev-shm-usage')
+                driver = webdriver.Chrome(options=chrome_options)
                 site = "https://twittervideodownloader.com"
                 # s = Service("D:\SeleniumDriverChrome\chromedriver.exe")
                 # driver = webdriver.Chrome(service=s)
@@ -33,16 +35,9 @@ def message_action(update, context):
                 link = d.get_attribute('href')
                 update.message.reply_video(video=link)
         elif (('youtube' or 'youtu.be') in link):
-                site = "https://en.savefrom.net/1-youtube-video-downloader-43/"
-                driver.get(site)
-                driver.implicitly_wait(4)
-                field = driver.find_element(By.CSS_SELECTOR, "input[type='text']")
-                field.send_keys(link)
-                ok = driver.find_element(By.ID, "sf_submit")
-                ok.click()
-                driver.implicitly_wait(4)
-                d = driver.find_element(By.CLASS_NAME, 'link-download')
-                link = d.get_attribute('href')
+                with youtube_dl.YoutubeDL(dict(forceurl=True)) as ydl:
+                   r = ydl.extract_info(link, download=False)
+                   link = r['formats'][-1]['url']
                 try:
                         update.message.reply_video(link)
                 except:
