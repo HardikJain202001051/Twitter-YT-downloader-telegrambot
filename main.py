@@ -20,7 +20,7 @@ def message_action(update, context):
       id = update.message.chat_id
       if id in allowed_users:
         link = update.message.text
-        if 'twitter' or 't.co' in link:
+        if '((twitter' or 't.co') in link):
                 site = "https://twittervideodownloader.com"
                 # s = Service("D:\SeleniumDriverChrome\chromedriver.exe")
                 # driver = webdriver.Chrome(service=s)
@@ -32,7 +32,7 @@ def message_action(update, context):
                 d = driver.find_element(By.LINK_TEXT, "Download Video")
                 link = d.get_attribute('href')
                 update.message.reply_video(video=link)
-        elif 'youtube' or 'youtu.be' in link:
+        elif (('youtube' or 'youtu.be') in link):
                 site = "https://en.savefrom.net/1-youtube-video-downloader-43/"
                 driver.get(site)
                 field = driver.find_element(By.ID, 'sf_url')
