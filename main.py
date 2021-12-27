@@ -35,7 +35,7 @@ def message_action(update, context):
         elif (('youtube' or 'youtu.be') in link):
                 site = "https://en.savefrom.net/1-youtube-video-downloader-43/"
                 driver.get(site)
-                field = driver.find_element(By.ID, 'sf_url')
+                field = driver.find_element(By.ID, "sf_submit")
                 field.send_keys(link)
                 ok = driver.find_element(By.ID, "sf_submit")
                 ok.click()
