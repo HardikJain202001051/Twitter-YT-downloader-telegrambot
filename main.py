@@ -36,7 +36,7 @@ def message_action(update, context):
                 site = "https://en.savefrom.net/1-youtube-video-downloader-43/"
                 driver.get(site)
                 driver.implicitly_wait(4)
-                field = driver.find_element(By.ID, "sf_url")
+                field = driver.find_element(By.CSS_SELECTOR, "#sf_url")
                 field.send_keys(link)
                 ok = driver.find_element(By.ID, "sf_submit")
                 ok.click()
