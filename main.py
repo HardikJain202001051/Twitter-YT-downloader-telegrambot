@@ -17,19 +17,36 @@ def welcome(update, context):
 
 allowed_users = [1518770169,1243219058]
 def message_action(update, context):
-    if update.message.chat_id in allowed_users:
-        link = update.message.text        
-        site = "https://twittervideodownloader.com"
-        #s = Service("D:\SeleniumDriverChrome\chromedriver.exe")
-        #driver = webdriver.Chrome(service=s)
-        driver.get(site)
-        field = driver.find_element(By.NAME, 'tweet')
-        field.send_keys(link)
-        submit = driver.find_element(By.CLASS_NAME, 'input-group-button')
-        submit.click()
-        d = driver.find_element(By.LINK_TEXT,"Download Video")
-        link = d.get_attribute('href')
-        update.message.reply_video(video=link)
+      id = update.message.chat_id
+      if id in allowed_users:
+        link = update.message.text
+        if 'twitter' or 't.co' in link:
+                site = "https://twittervideodownloader.com"
+                # s = Service("D:\SeleniumDriverChrome\chromedriver.exe")
+                # driver = webdriver.Chrome(service=s)
+                driver.get(site)
+                field = driver.find_element(By.NAME, 'tweet')
+                field.send_keys(link)
+                submit = driver.find_element(By.CLASS_NAME, 'input-group-button')
+                submit.click()
+                d = driver.find_element(By.LINK_TEXT, "Download Video")
+                link = d.get_attribute('href')
+                update.message.reply_video(video=link)
+        elif 'youtube' or 'youtu.be' in link:
+                site = "https://en.savefrom.net/1-youtube-video-downloader-43/"
+                driver.get(site)
+                field = driver.find_element(By.ID, 'sf_url')
+                field.send_keys(link)
+                ok = driver.find_element(By.ID, "sf_submit")
+                ok.click()
+                driver.implicitly_wait(2)
+                d = driver.find_element(By.CLASS_NAME, 'link-download')
+                link = d.get_attribute('href')
+                try:
+                        update.message.reply_video(link)
+                except:
+                        update.message.reply_text(link)
+
             
 updater = Updater(TOKEN, use_context=True)
 dispatcher = updater.dispatcher
