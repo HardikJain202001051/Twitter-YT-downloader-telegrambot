@@ -7,13 +7,14 @@ from selenium import webdriver
 
 import youtube_dl
 
-TOKEN = '5027998873:AAHaa9EOETEwvUAVFsX0almIMw-wr9jJVm4'
+#following secrets have been removed from here
+TOKEN = ''
+allowed_users = [] 
 
       
 def welcome(update, context):
     update.message.reply_text("Hey!Send the link of tweet to get the video")
 
-allowed_users = [1518770169,1243219058]
 def message_action(update, context):
       id = update.message.chat_id
       if id in allowed_users:
